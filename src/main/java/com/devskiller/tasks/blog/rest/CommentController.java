@@ -33,6 +33,6 @@ public class CommentController {
 	@ResponseStatus(HttpStatus.OK)
 	public ResponseEntity<String> addPost(@RequestBody NewCommentDto commentDto) {
 		String commentId= commentService.addComment(commentDto);
-		return ResponseEntity.status(201).body(commentId);
+		return ResponseEntity.status(HttpStatus.CREATED).body(commentId);
 	}
 }
