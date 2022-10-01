@@ -1,6 +1,7 @@
 package com.devskiller.tasks.blog.service;
 
 import com.devskiller.tasks.blog.model.Post;
+import com.devskiller.tasks.blog.model.dto.NewCommentDto;
 import com.devskiller.tasks.blog.model.dto.PostDto;
 import com.devskiller.tasks.blog.repository.PostRepository;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.springframework.test.util.AssertionErrors.assertNotNull;
@@ -44,5 +47,15 @@ public class PostServiceTest {
 		PostDto postDto = postService.getPost("123");
 
 		assertNull(postDto);
+	}
+	
+	
+	@Test
+	public void shouldAddPost() {
+		PostDto post = new PostDto("Title", "Content", LocalDateTime.now());
+
+		String commentId = postService.addPost(post);
+
+		assertThat("Comment id shouldn't be null", commentId, notNullValue());
 	}
 }

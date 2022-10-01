@@ -31,7 +31,7 @@ public class CommentController {
 
 	@PostMapping(value = "/{id}/comments")
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<String> addPost(@RequestBody NewCommentDto commentDto) {
+	public ResponseEntity<String> addComment(@RequestBody NewCommentDto commentDto) {
 		String commentId= commentService.addComment(commentDto);
 		return ResponseEntity.status(HttpStatus.CREATED).body(commentId);
 	}
