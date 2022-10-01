@@ -26,7 +26,7 @@ public class PostServiceTest {
 	public void shouldReturnCreatedPost() {
 		Post post = new Post();
 		post.setTitle("Test title");
-		post.setContent("Test content");
+		post.setContent("Test Post");
 		LocalDateTime creationDate = LocalDateTime.of(2018, 5, 20, 20, 51, 16);
 		post.setCreationDate(creationDate);
 		postRepository.save(post);
