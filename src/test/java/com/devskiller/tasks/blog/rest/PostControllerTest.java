@@ -9,7 +9,6 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class PostControllerTest extends AbstractControllerTest {
@@ -31,23 +30,5 @@ public class PostControllerTest extends AbstractControllerTest {
 				.andExpect(jsonPath("$.content", is("content")))
 				.andExpect(jsonPath("$.creationDate", is(creationDate.toString())));
 
-	}
-	
-	@Test
-	public void shouldAddPost() throws Exception {
-
-		// given
-		String commentBody = "{\"content\":\"Test content\", \"author\":\"John Doe\"}";
-		PostDto newPost = new PostDto("Test content", "John Doe", LocalDateTime.now());
-
-		// when
-		when(postService.addPost(newPost)).thenReturn("1");
-
-		// then
-		mockMvc.perform(post("/posts")
-				.content(commentBody)
-				.contentType(APPLICATION_JSON)
-				.accept(APPLICATION_JSON))
-				.andExpect(status().isCreated());
 	}
 }
