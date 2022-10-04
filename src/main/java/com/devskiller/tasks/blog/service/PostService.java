@@ -3,9 +3,9 @@ package com.devskiller.tasks.blog.service;
 
 import java.time.LocalDateTime;
 
+import com.devskiller.tasks.blog.model.dto.NewPostDto;
 import org.springframework.stereotype.Service;
 
-import com.devskiller.tasks.blog.model.Comment;
 import com.devskiller.tasks.blog.model.Post;
 import com.devskiller.tasks.blog.model.dto.PostDto;
 import com.devskiller.tasks.blog.repository.PostRepository;
@@ -25,10 +25,10 @@ public class PostService {
 				.orElse(null);
 	}
 
-	public String addPost(PostDto postDto) {
+	public String createPost(NewPostDto newPostDto) {
 		Post post = new Post();
-		post.setTitle(postDto.getTitle());
-		post.setContent(postDto.getContent());
+		post.setTitle(newPostDto.getTitle());
+		post.setContent(newPostDto.getContent());
 		post.setCreationDate(LocalDateTime.now());
 		Post postSaved = postRepository.save(post);
 		return postSaved.getId();

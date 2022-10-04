@@ -10,12 +10,24 @@ public class CommentDto {
 
 	private String author;
 
+	private String postId;
+
 	private LocalDateTime creationDate;
 
 	public CommentDto(String id, String comment, String author, LocalDateTime creationDate) {
 		this.id = id;
 		this.comment = comment;
 		this.author = author;
+		this.postId = null;
+		this.creationDate = creationDate;
+	}
+
+
+	public CommentDto(String id, String comment, String author, LocalDateTime creationDate, String postId) {
+		this.id = id;
+		this.comment = comment;
+		this.author = author;
+		this.postId = postId;
 		this.creationDate = creationDate;
 	}
 
@@ -29,6 +41,10 @@ public class CommentDto {
 
 	public String getAuthor() {
 		return author;
+	}
+
+	public String getPostId() {
+		return postId;
 	}
 
 	public LocalDateTime getCreationDate() {

@@ -12,11 +12,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.hamcrest.Matchers.*;
 
 @SpringBootTest
 public class CommentServiceTest {
-
 	@Autowired
 	PostRepository postRepository;
 
@@ -24,16 +25,29 @@ public class CommentServiceTest {
 	CommentService commentService;
 
 	@Test
-	public void shouldAddComment() {
+	public void shouldCreateComment() {
 		Post post = createTestPost();
-
 		NewCommentDto comment = new NewCommentDto();
-		comment.setPostId(post.getId());
 		comment.setAuthor("Author");
 		comment.setContent("Content");
-		String commentId = commentService.addComment(comment);
+		String commentId = commentService.addComment(post.getId(), comment);
 
 		assertThat("Comment id shouldn't be null", commentId, notNullValue());
+	}
+
+	@Test
+	public void shouldNotCreateCommentAndThrowException() {
+		String nonExistingPostId = "10ade";
+		Exception exception = assertThrows(RuntimeException.class, () -> {
+			NewCommentDto comment = new NewCommentDto();
+			comment.setAuthor("Author");
+			comment.setContent("Content");
+			String commentId = commentService.addComment(nonExistingPostId, comment);
+		});
+
+		String expectedMessage = "Inexisting Post with Id 10ade";
+		String actualMessage = exception.getMessage();
+		assertEquals(expectedMessage, actualMessage);
 	}
 
 	private Post createTestPost() {
@@ -51,11 +65,10 @@ public class CommentServiceTest {
 		Post post = createTestPost();
 
 		NewCommentDto comment = new NewCommentDto();
-		comment.setPostId(post.getId());
 		comment.setAuthor("Author");
 		comment.setContent("Content");
 
-		commentService.addComment(comment);
+		commentService.addComment(post.getId(), comment);
 
 		List<CommentDto> comments = commentService.getCommentsForPost(post.getId());
 

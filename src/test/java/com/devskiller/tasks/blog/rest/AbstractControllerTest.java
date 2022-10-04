@@ -1,5 +1,6 @@
 package com.devskiller.tasks.blog.rest;
 
+import com.devskiller.tasks.blog.repository.PostRepository;
 import com.devskiller.tasks.blog.service.CommentService;
 import com.devskiller.tasks.blog.service.PostService;
 import org.junit.jupiter.api.BeforeEach;

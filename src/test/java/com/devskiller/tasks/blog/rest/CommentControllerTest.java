@@ -2,14 +2,17 @@ package com.devskiller.tasks.blog.rest;
 
 import com.devskiller.tasks.blog.model.dto.CommentDto;
 import com.devskiller.tasks.blog.model.dto.NewCommentDto;
+import com.sun.jdi.InternalException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -49,7 +52,7 @@ public class CommentControllerTest extends AbstractControllerTest {
 		NewCommentDto newComment = createComment("Test content", "John Doe");
 
 		// when
-		when(commentService.addComment(newComment)).thenReturn("1");
+		when(commentService.addComment("434343", newComment)).thenReturn("1");
 
 		// then
 		mockMvc.perform(post("/posts/1/comments")

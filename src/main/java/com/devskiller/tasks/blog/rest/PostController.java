@@ -1,19 +1,12 @@
 package com.devskiller.tasks.blog.rest;
 
+import com.devskiller.tasks.blog.model.dto.NewPostDto;
+import com.devskiller.tasks.blog.model.dto.PostDto;
+import com.devskiller.tasks.blog.service.PostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.devskiller.tasks.blog.model.dto.NewCommentDto;
-import com.devskiller.tasks.blog.model.dto.PostDto;
-import com.devskiller.tasks.blog.service.PostService;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RestController
@@ -26,16 +19,16 @@ public class PostController {
 		this.postService = postService;
 	}
 
-	@GetMapping(value = "/{id}")
+	@GetMapping(value = "/{postId}")
 	@ResponseStatus(HttpStatus.OK)
-	public PostDto getPost(@PathVariable String id) {
-		return postService.getPost(id);
+	public PostDto getPost(@PathVariable final String postId) {
+		return postService.getPost(postId);
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.OK)
-	public ResponseEntity<String> addPost(@RequestBody PostDto postDto) {
-		String postId= postService.addPost(postDto);
+	public ResponseEntity<String> createPost(@RequestBody final NewPostDto newPostDto) {
+		String postId = postService.createPost(newPostDto);
 		return ResponseEntity.status(HttpStatus.CREATED).body(postId);
 	}
 }
